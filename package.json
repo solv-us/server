@@ -1,0 +1,29 @@
+{
+  "name": "solvus-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node src/index.js "
+  },
+  "dependencies": {
+    "chokidar": "^3.3.1",
+    "easymidi": "^1.0.3",
+    "express": "^4.17.1",
+    "smpte.js": "^1.0.1",
+    "socket.io": "^2.3.0",
+    "tap-tempo": "^0.1.1",
+    "timesync": "^1.0.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.6",
+    "eslint": "^6.7.2",
+    "nodemon": "^2.0.1"
+  },
+  "author": "dpkn",
+  "license": "ISC"
+}

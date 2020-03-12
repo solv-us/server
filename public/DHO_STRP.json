@@ -1,0 +1,21 @@
+{
+    "name": "STRP_DHO",
+    "stages": [
+        {
+            "id": "Main",
+            "media": "symmetry.mp4"
+        },
+        {
+            "id": "2",
+            "media": "aaa.mp4"
+        },
+        {
+            "id": "3",
+            "media": "symmetry.mp4"
+        },
+        {
+            "id": "4",
+            "media": "symmetry.mp4"
+        }
+    ]
+}
