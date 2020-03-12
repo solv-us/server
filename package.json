@@ -2,10 +2,25 @@
   "name": "solvus-server",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "private": true,
+  "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node src/index.js "
+    "start": "TS_NODE_FILES=true node --inspect=5858 -r ts-node/register ./src/index.ts",
+    "start:watch": "nodemon",
+    "build": "webpack"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
   },
   "dependencies": {
     "chokidar": "^3.3.1",
@@ -14,15 +29,25 @@
     "smpte.js": "^1.0.1",
     "socket.io": "^2.3.0",
     "tap-tempo": "^0.1.1",
-    "timesync": "^1.0.5"
+    "timesync": "^1.0.5",
+    "uws": "^10.148.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
     "@babel/core": "^7.7.5",
     "@babel/node": "^7.7.4",
     "@babel/preset-env": "^7.7.6",
-    "eslint": "^6.7.2",
-    "nodemon": "^2.0.1"
+    "@types/node": "^13.9.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "node-loader": "^0.6.0",
+    "nodemon": "^2.0.2",
+    "source-map-loader": "^0.2.4",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
   },
   "author": "dpkn",
   "license": "ISC"
