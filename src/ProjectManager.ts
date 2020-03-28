@@ -1,5 +1,5 @@
 let fs = require('fs');
-let path = require('path');
+const fsPromises = fs.promises;
 
 import { Project } from './Project';
 
@@ -8,20 +8,26 @@ export default class ProjectManager {
     activeProject:Project;
     projects: Array<String>
 
-    constructor(directory: String = '/'){
-        this.projects = this.listProjects(directory);
-    }
-
-    listProjects(directory: String){
-        let ProjectList : Array<String>;
-
-        fs.readdir(path.join(__dirname, directory), (err, files: Array<String>) => {
-            if(files){
-               ProjectList = files;
-            }
+    constructor(public directory: String = '/'){
+        
+        this.listProjects().then(projectList => {
+            this.projects = projectList;
         });
 
-        return ProjectList;
+    }
+
+    async listProjects(){
+        let projectList : Array<String>;
+
+        let projectFiles = await fsPromises.readdir(this.directory);
+        if (projectFiles) {
+            projectList = projectFiles;
+        } else {
+            console.error('No projects found in folder ' + this.directory)
+        }
+
+       return projectList;
+    
     }
 
     loadProjectFromFile(fileName){

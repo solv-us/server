@@ -25,7 +25,7 @@ export class Project {
                 let project = JSON.parse(contents);
                 this.loadProject(project)
             }catch(error){
-                console.error(error)
+                console.error('Cannot load project file: ' +fileName + '. File corrupted or not found.')
             }
         });
     }

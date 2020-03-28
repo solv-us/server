@@ -6,19 +6,15 @@ let app = express();
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
 
-// TODO: CHange back to socket.io implementation
-let timesyncServer = require('./timesync.js');
-
 // Require components
 import Client from './Client'
 import ProjectManager from './ProjectManager'
 import MediaManager from './MediaManager'
 
 // Setup Solvus
-let projectManager = new ProjectManager('../public/projects');
-projectManager.loadProjectFromFile('../public/projects/DHO_STRP.json');
+let projectManager = new ProjectManager(path.join(__dirname,'../public/projects'));
+//projectManager.loadProjectFromFile('../public/projects/DHO_STRP.sproject');
 let mediaManager = new MediaManager('/Users/daniel/projects/solvus/solvus-server/public/content');
-
 
 // Set up port
 let port = process.env.PORT || 8080;
@@ -28,7 +24,6 @@ server.listen(port, () => {
 
 // Set up static file server for the public folder
 app.use('/stage',express.static(path.join(__dirname, '../public/stage')));
-app.use('/timesync', timesyncServer.requestHandler);
 
 let clients : Array<Client> = [];
 let files : Array<any> = [];
@@ -44,9 +39,13 @@ let timeSocket = io.of('/time');
 // Communication with UI
 //
 uiSocket.on('connection', (socket) => {
-    uiSocket.emit('clientsUpdate', clients);
-    socket.emit('filesUpdate', mediaManager.files);
-    uiSocket.emit('projectUpdate', projectManager.activeProject);
+    if(projectManager.activeProject){
+        socket.emit('clientsUpdate', clients);
+        socket.emit('filesUpdate', mediaManager.files);
+        socket.emit('projectUpdate', projectManager.activeProject);
+    }else{
+        socket.emit('projects', projectManager.projects)
+    }
 
     socket.on('updateStages', (stages) =>{
         for(let stage of stages){

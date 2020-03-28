@@ -31,7 +31,7 @@ export default class MediaManager {
             }
 
         }
-        console.log(this.directory, mediaFileList)
+
         return mediaFileList;
     }
 }
