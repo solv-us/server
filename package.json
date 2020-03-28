@@ -26,6 +26,7 @@
     "chokidar": "^3.3.1",
     "easymidi": "^1.0.3",
     "express": "^4.17.1",
+    "midi": "^1.0.0",
     "smpte.js": "^1.0.1",
     "socket.io": "^2.3.0",
     "tap-tempo": "^0.1.1",

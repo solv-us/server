@@ -28,26 +28,13 @@ app.use('/stage',express.static(path.join(__dirname, '../public/stage')));
 //app.use(express.static(path.join(__dirname, '../../solvus-ui/dist')));
 app.use('/timesync', timesyncServer.requestHandler);
 
-
-let activeProject = new Project('../public/DHO_STRP.json');
+let activeProject = new Project('../public/projects/DHO_STRP.json');
 let clients = [];
 let files = [];
 
+// Define the different namespaces for socket communication
 let clientsSocket = io.of('/client');
 let uiSocket = io.of('/ui');
-let timeSocket = io.of('/time');
-//
-// Communication with all clients
-//
-timeSocket.on('connection', function (socket) {
-    socket.on('timesync', function (data) {
-        socket.emit('timesync', {
-            id: data && 'id' in data ? data.id : null,
-            result: Date.now()
-        });
-    });
-});
-
 
 // 
 // Communication with clients
@@ -120,7 +107,7 @@ uiSocket.on('connection', (socket) => {
 
     let mediaFiles = [];
 
-    const directoryPath = path.join(__dirname, '../public/stage/content');
+    const directoryPath = path.join(__dirname, '../public/content');
 
     fs.readdir(directoryPath, (err, files) => {
         if (err) {
@@ -208,7 +195,7 @@ tapTempo.on('tempo', function (bpm) {
     clientsSocket.emit('bpm', { bpma:bpm, timestamp } );
 
     let pads = [16, 13,14,15,16]
-    let pads2 = [12, 9, 10, 11, 12]
+    let pads2 = [9, 10, 11, 12, 9]
     let tick = 0;
     quarterEvent = setInterval(() => {
         tick++;
@@ -264,3 +251,19 @@ tapTempo.on('tempo', function (bpm) {
 
     }, 60000/bpm)
 })
+
+
+
+// let timeSocket = io.of('/time');
+
+// //
+// // Communication with all clients
+// //
+// timeSocket.on('connection', function (socket) {
+//     socket.on('timesync', function (data) {
+//         socket.emit('timesync', {
+//             id: data && 'id' in data ? data.id : null,
+//             result: Date.now()
+//         });
+//     });
+// });

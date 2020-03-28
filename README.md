@@ -2,14 +2,13 @@
 Solvus Server aims to be software for playing and syncronizing multimedia on the web. 
 
 ## Directories
---------------------------------------------------------------------------------------------
+
 | Directory         | Purpose                                                              |
 |-------------------|----------------------------------------------------------------------|
 | /dist             | Containtes minified and bundled script after building for production |
 | /public           | The folder exposed by the server                                     |
 | /public/stage     | The stages                                                           |
 | /src              | The source code of the server                                        |
---------------------------------------------------------------------------------------------
 
 ## Recommended project setup
 ```

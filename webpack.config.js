@@ -1,9 +1,9 @@
 module.exports = {
     entry: "./src/index.ts",
     target: 'node',
-    mode:"production",
+    mode:"development",
     output: {
-        filename: "./index.js",
+        filename: "./index2.js",
     },
     devtool: "source-map",
     resolve: {
