@@ -1,5 +1,6 @@
 {
     "name": "STRP_DHO",
+    "mediaPath":"/Users/daniel/projects/solvus/solvus-server/public/content",
     "stages": [
         {
             "id": "Main",

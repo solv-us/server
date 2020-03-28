@@ -12,7 +12,7 @@
     <section class="screen-disabled no-signal center-content" >
         <div class="center-content">
             <div>
-                <h1>Stage #<span class="stageId"></span></h1>
+                <h1>stage #<span class="stageId"></span></h1>
                 <h2><span class="screenSize"></span></h2>
                 <span class="loaded">loaded: false</span>
                 <span class="smpte">00:00:00:00</span><br>
@@ -42,13 +42,29 @@
         // Connect to server
         let serverURI = window.location.host;
         const socket = io(serverURI + '/client');
+        const timeSocket = io(serverURI + '/time');
 
         let client = new Client(socket, stageId);
 
         // Setup timesync
         let ts = timesync.create({
-            server: '/timesync',
+            server: timeSocket,
             interval: 50
+        });
+
+        ts.send = function (socket, data, timeout) {
+            //console.log('send', data);
+            return new Promise(function (resolve, reject) {
+                var timeoutFn = setTimeout(reject, timeout);
+
+                socket.emit('timesync', data, function () {
+                    clearTimeout(timeoutFn);
+                    resolve();
+                });
+            });
+        };
+        timeSocket.on('timesync', function (data) {
+            ts.receive(null, data);
         });
 
     </script>
