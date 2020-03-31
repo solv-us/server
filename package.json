@@ -6,6 +6,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "TS_NODE_FILES=true node --inspect=5858 -r ts-node/register ./src/index.ts",
+    "start:nodebug": "TS_NODE_FILES=true node -r ts-node/register ./src/index.ts",
     "start:watch": "nodemon",
     "build": "webpack"
   },
@@ -23,6 +24,7 @@
     "ext": "ts"
   },
   "dependencies": {
+    "chalk": "^3.0.0",
     "chokidar": "^3.3.1",
     "easymidi": "^1.0.3",
     "express": "^4.17.1",

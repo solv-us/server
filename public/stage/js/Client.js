@@ -32,6 +32,10 @@ class Client {
     }
 
     setMedia(fileName){
+
+        if(fileName === this.state.media)
+        return;
+        
         this.state.media = fileName;
         this.state.loaded = false;
         document.querySelector('.screen-disabled').style.display = '';
@@ -63,7 +67,7 @@ class Client {
 
     loadContent(fileName) {
         let req = new XMLHttpRequest();
-        req.open('GET', './content/' + fileName + '?_=' + new Date().getTime(), true);
+        req.open('GET', '/content/' + fileName + '?_=' + new Date().getTime(), true);
         req.setRequestHeader('Cache-Control', 'no-cache');
         req.responseType = 'blob';
 
