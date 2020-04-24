@@ -1,4 +1,6 @@
 /node_modules
-/dist
 /public/content
-/projects
+/public/projects
+
+local-cert.pem
+local-key.pem

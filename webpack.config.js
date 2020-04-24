@@ -1,9 +1,9 @@
 module.exports = {
     entry: "./src/index.ts",
     target: 'node',
-    mode:"development",
+    mode:"production",
     output: {
-        filename: "./index2.js",
+        filename: "./SolvusServer.js",
     },
     devtool: "source-map",
     resolve: {

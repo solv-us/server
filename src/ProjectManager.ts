@@ -58,6 +58,7 @@ export default class ProjectManager {
     loadProject(project: any) {
         this.activeProject = new Project(project.name);
         this.activeProject.stages = project.stages;
+        this.activeProject.windows = project.windows;
         this.activeProject.mediaPath = project.mediaPath;
     }
  
@@ -84,6 +85,14 @@ export default class ProjectManager {
         await this.save();
         this.activeProject = undefined;
         return true;
+    }
+
+    async delete(){
+        if (this.activeProject) {
+            let deleted = await fsPromises.unlink(this.directory + '/' + this.activeProject.name + '.sproject').catch((e)=>{console.error(e)})
+            this.activeProject = undefined;
+            return deleted;
+        }
     }
 
 }

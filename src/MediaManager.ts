@@ -8,7 +8,6 @@ export default class MediaManager {
     files: Array<MediaFile>
 
     constructor(public directory: String = '/'){
-
         this.listFiles().then(mediaFileList =>{
             this.files = mediaFileList;
         });
@@ -22,12 +21,14 @@ export default class MediaManager {
             for (let file of files) {
                 let absolutePath = this.directory + '/' + file;
                 let stats = fs.statSync(absolutePath)
-
-                let mediaFile: MediaFile = {
-                    name: file,
-                    size: stats.size / 1000000.0,
+                
+                if(file.charAt(0) !== '.'){
+                    let mediaFile: MediaFile = {
+                        name: file,
+                        size: Math.round(stats.size / 1000000.0),
+                    }
+                    mediaFileList.push(mediaFile)
                 }
-                mediaFileList.push(mediaFile)
             }
 
         }
