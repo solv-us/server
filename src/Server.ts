@@ -5,6 +5,8 @@ const log = console.log;
 let path = require('path');
 let fs = require('fs');
 
+import { projectManager } from './index'
+
 import pem from "pem"
 import express, { Application } from "express";
 import { createServer as createHttpsServer, Server as HTTPSServer } from "https";
@@ -23,7 +25,6 @@ export default class Server {
     */
     private async initialize() {
 
-        this.app = express();
         let keyPath = './local-key.pem';
         let certPath = './local-cert.pem';
 
@@ -35,9 +36,11 @@ export default class Server {
         let key = fs.readFileSync(keyPath);
         let cert = fs.readFileSync(certPath);
 
+        this.app = express();
         this.httpsServer = createHttpsServer({ key, cert }, this.app);
 
         let port = process.env.PORT || 8843;
+
         this.httpsServer.listen(port, async () => {
             let ip = await this.getServerIPAddress();
             log(`Listening on https://${ip}:${port}`, '\n');
@@ -45,7 +48,7 @@ export default class Server {
 
         // Root message
         let version = require('../package.json').version;
-        this.app.get('/', (req, res) => res.send(`Running Solv.us Server ${version} ⭐`))
+        this.app.get('/', (req, res) => res.send(`solv.us server ${version}: ${projectManager.activeProject ? projectManager.activeProject.name +'.sproject opened' : 'no open project'}`))
 
         // Set up static file server for the public folder
         this.app.use('/stage', express.static(path.join(__dirname, '../public/stage')));

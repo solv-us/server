@@ -1,7 +1,7 @@
 let easymidi = require('easymidi');
 let tapTempo = require('tap-tempo')();
 
-class MidiDeviceManager {
+export default class MidiDeviceManager {
     inputs: any;
     outputs: any;
     controller: any;

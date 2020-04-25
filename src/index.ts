@@ -7,6 +7,7 @@ import Server from './Server'
 import ClientManager from './ClientManager'
 import ProjectManager from './ProjectManager'
 import MediaManager from './MediaManager'
+import WindowManager from './WindowManager'
 
 // Setup Solvus
 // TO-DO: Put this all in one over-arching class
@@ -17,6 +18,8 @@ let io = require('socket.io')(server.httpsServer, { serveClient: false });
 let clientManager = new ClientManager();
 let projectManager = new ProjectManager(__dirname + '/../public/projects');
 let mediaManager = new MediaManager('/Users/daniel/projects/solvus/solvus-server/public/content');
+
+export { clientManager, projectManager, mediaManager};
 
 const START_OFFSET = 500;
 

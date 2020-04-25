@@ -1,33 +1,17 @@
-let fs = require('fs');
-const fsPromises = fs.promises;
-let path = require('path');
+import Window from "./Window"
+import Stage from "./Stage"
+import MidiMap from "./MidiMap"
 
-export class Project {
-    mediaPath: String;
-    stages: Array<any>;
-    midiDevices: Array<any>;
+export default class Project {
+    mediaPath: string;
+    stages: Array<Stage>;
+    midiMappings: Array<MidiMap>;
     windows: Array<Window>;
 
     constructor(public name : string = ''){
         this.stages = [];
         this.windows = [];
-        this.midiDevices = [];
         this.mediaPath = '';
     }
     
-}
-
-type WindowType = "Client" | "Stage" | "Controls";
-export class Window {
-    title: String;
-    type: WindowType;
-    position: {
-        x: Number,
-        y: Number
-    };
-    opened: false;
-
-    constructor(title="") {
-
-    }
 }

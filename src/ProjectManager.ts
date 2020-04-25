@@ -1,13 +1,12 @@
 let fs = require('fs');
 const fsPromises = fs.promises;
 
-import { Project } from './Project';
-import { timingSafeEqual } from 'crypto';
+import Project from './Project';
 
 export default class ProjectManager {
 
     activeProject:Project;
-    projects: Array<String>
+    projects: Array<string>
 
     constructor(public directory: String = '/'){
         
@@ -18,7 +17,7 @@ export default class ProjectManager {
     }
 
     async listProjects(){
-        let projectList : Array<String> = [];
+        let projectList : Array<string> = [];
 
         let projectFiles = await fsPromises.readdir(this.directory);
         if (projectFiles) {

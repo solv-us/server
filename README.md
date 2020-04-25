@@ -1,15 +1,6 @@
 # solvus-server
 Solvus Server aims to be software for playing and syncronizing multimedia on the web. 
 
-## Directories
-
-| Directory         | Purpose                                                              |
-|-------------------|----------------------------------------------------------------------|
-| /dist             | Containtes minified and bundled script to use in production |
-| /public           | The folder exposed by the server                                     |
-| /public/stage     | The stages                                                           |
-| /src              | The source code of the server                                        |
-
 ## Setup for production
 ### Prerequisites
 Solvus is a Node.js server, so to run it you need [Node.js](https://nodejs.org/en/) installed on the computer you intend to run this server on. Solvus is written for Node.js V12.13, but might work with different versions.
@@ -29,7 +20,7 @@ Solvus server is by default only accessible over HTTPS. To make things easier, i
 
 
 ## Setup for development
-If you want to add features or customize the server, clone the whole repository and install its dependencies.
+If you want to add features or customize the server, you'll need to clone the whole repository and install its dependencies.
 
 ```
 git clone https://github.com/solv-us/solvus-server.git
@@ -42,7 +33,16 @@ npm install
 npm run start:watch
 ```
 
-### Compiles and minifies for production
+### Compile and minifie for production
 ```
 npm run build
 ```
+
+## Directories
+
+| Directory         | Purpose                                                              |
+|-------------------|----------------------------------------------------------------------|
+| /dist             | Containtes minified and bundled script to use in production |
+| /public           | The folder exposed by the server                                     |
+| /public/stage     | The stages                                                           |
+| /src              | The source code of the server                                        |
