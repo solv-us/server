@@ -1,23 +1,19 @@
-# solvus-server
-Solvus Server aims to be software for playing and syncronizing multimedia on the web. 
+# solv.us server
+This repository contains the server component of solv.us. For full instructions, please see the [documentation repository](https://github.com/solv-us/documentation).
 
 ## Setup for production
 ### Prerequisites
-Solvus is a Node.js server, so to run it you need [Node.js](https://nodejs.org/en/) installed on the computer you intend to run this server on. Solvus is written for Node.js V12.13, but might work with different versions.
+Solv.us server runs in a Node.js environment, so make sure [Node.js](https://nodejs.org/en/) is installed on the computer you intend to run this server on. 
 
-Download the latest version from ```dist/SolvusServer.js```. Place it where you want, navigate to it in your terminal and then run:
+Download the latest version from ```dist/SolvusServer.js```. Place it where you want, navigate there in your terminal and then run:
 ```
 node SolvusServer
 ```
 
-Solvus will now start.
-
-###
-
 ### Note on HTTPS
-Solvus server is by default only accessible over HTTPS. To make things easier, it will generate the necessary certificate and key on start up and save them in the root folder. Browsers will not trust this certificate since it's self-signed, so in each browser you will need to trust it manually. If you wish to provide your own certificate and key to prevent this, save them as ```./local-cert.pem``` and ```./local-key.pem``` in your root folder.
+Solv.us server is by default only accessible over HTTPS. To make things easier, it will generate the necessary certificate and key on start up and save them in the root folder. Browsers will not trust this certificate since it's self-signed, so in each browser you will need to trust it manually.
 
-
+If you wish to provide your own certificate and key to prevent this, save them as ```./local-cert.pem``` and ```./local-key.pem``` in your root folder.
 
 ## Setup for development
 If you want to add features or customize the server, you'll need to clone the whole repository and install its dependencies.
