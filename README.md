@@ -20,7 +20,7 @@ If you want to add features or customize the server, you'll need to clone the wh
 
 ```
 git clone https://github.com/solv-us/server.git
-cd solvus-server
+cd server
 npm install
 ```
 
