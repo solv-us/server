@@ -19,7 +19,7 @@ If you wish to provide your own certificate and key to prevent this, save them a
 If you want to add features or customize the server, you'll need to clone the whole repository and install its dependencies.
 
 ```
-git clone https://github.com/solv-us/solvus-server.git
+git clone https://github.com/solv-us/server.git
 cd solvus-server
 npm install
 ```
