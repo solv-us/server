@@ -5,8 +5,6 @@ const log = console.log;
 let path = require('path');
 let fs = require('fs');
 
-import { projectManager } from './index'
-
 import pem from "pem"
 import express, { Application } from "express";
 import { createServer as createHttpsServer, Server as HTTPSServer } from "https";
@@ -21,9 +19,9 @@ export default class Server {
     }
 
     /*
-    *   Set up the server using Express 
+    *   Set up the server using Express and self-sign HTTPS certificates if none are present
     */
-    private async initialize() {
+    private async initialize(){
 
         let keyPath = './local-key.pem';
         let certPath = './local-cert.pem';
@@ -47,8 +45,8 @@ export default class Server {
         });
 
         // Root message
-        let version = require('../package.json').version;
-        this.app.get('/', (req, res) => res.send(`solv.us server ${version}: ${projectManager.activeProject ? projectManager.activeProject.name +'.sproject opened' : 'no open project'}`))
+       // let version = require('../package.json').version;
+      //  this.app.get('/', (req, res) => res.send(`solv.us server ${version}: ${projectManager.activeProject ? projectManager.activeProject.name +'.sproject opened' : 'no open project'}`))
 
         // Set up static file server for the public folder
         this.app.use('/stage', express.static(path.join(__dirname, '../public/stage')));
