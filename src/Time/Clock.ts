@@ -1,12 +1,17 @@
-// Based on https://github.com/mrdoob/three.js/blob/master/src/core/Clock.js by  alteredq under MIT License
-// and https://github.com/livejs/midi-clock by livejs
+/**
+ * Clock: emits pulses based on a tempo in BPM. 
+ * Based on https://github.com/mrdoob/three.js/blob/master/src/core/Clock.js by  alteredq under MIT License
+ * and https://github.com/livejs/midi-clock by livejs
+ */
+
+// To-Do: Find a better alternative for setTimeout to allow for higher PPB rate.
+// e.g. https://nodejs.org/fa/docs/guides/event-loop-timers-and-nexttick/
 
 const DEFAULT_BPM = 120 // Beats per minute
-const DEFAULT_PPB = 24 // Pulse per beat / quarter-note
+const DEFAULT_PPB = 12 // Pulse per beat / quarter-note
 const DEFAULT_FPS = 24 // Frames Per Second
 
-const EventEmitter = require('events');
-
+import { EventEmitter } from 'events';
 //import timecode from './timecode'
 
 export default class Clock extends EventEmitter  {
@@ -26,7 +31,7 @@ export default class Clock extends EventEmitter  {
         this.elapsedTime = 0;
         this.elapsedPulses = 0;
 
-        this.pulseLength = (60000 / this.bpm) / this.ppb;
+        this.pulseLength = 60000 / (this.bpm * this.ppb); // 1 minute in ms / Pulses per minute
     }
     /**
      * Sets a new BPM tempo and resets elapsed pulses so beat starts at 1 again
@@ -34,32 +39,47 @@ export default class Clock extends EventEmitter  {
     setTempo(bpm){
         this.bpm = bpm;
         this.elapsedPulses = 0;
-        this.pulseLength = (60000 / this.bpm) / this.ppb;
+        this.pulseLength = 60000 / (this.bpm * this.ppb);
 
         this.emit('tempoChanged', this.bpm);
+    }
+
+    /**
+     * Toggles the clock between Start and Stop state
+     */
+    toggle(){
+        if(this.isRunning){
+            this.stop();
+        }else{
+            this.start();
+        }
     }
 
     /**
      * Starts the clock
      */
     start() {
-        this.isRunning = true;
-        this.startTime = this.getSystemTime()
-        this.oldTime = this.startTime
-        this.elapsedTime = 0;
-        this.elapsedPulses = 0;
-        
-        this.emit('started');
-        this.pulse()
+        if(!this.isRunning){
+            this.isRunning = true;
+            this.startTime = this.getSystemTime()
+            this.oldTime = this.startTime
+            this.elapsedTime = 0;
+            this.elapsedPulses = 0;
+
+            this.emit('started');
+            this.pulse()
+        }
     }
 
     /**
      * Stops the clock
      */
     stop() {
-        this.getElapsedTime()
-        this.isRunning = false;
-        this.emit('stopped');
+        if(this.isRunning){
+            this.getElapsedTime()
+            this.isRunning = false;
+            this.emit('stopped');
+        }
     }
 
     /**
@@ -101,10 +121,6 @@ export default class Clock extends EventEmitter  {
      * https://en.wikipedia.org/wiki/Pulses_per_quarter_note
      */
     pulse() {
-        // TO-DO
-        // This all works enough for the moment, but there are inconsistencies when changing the PPB
-        // Need to fix but I really dont understand why
-        // Please enjoy the chaos.
 
         let pulse = this.elapsedPulses % this.ppb
         let quarterPulse = this.elapsedPulses % (this.ppb / 4);
@@ -115,20 +131,22 @@ export default class Clock extends EventEmitter  {
         let division = Math.floor(pulse / (this.ppb / 4)) + 1
         let bar = Math.floor(beatsFromZero / 4) + 1;
 
+        let data = { bar, beat, division, pulse };
+
         if (pulse === 0) {
-            this.emit('beat', { bar, beat, division, pulse } )
+            this.emit('beat',data)
         }
 
         if (quarterPulse === 0){
-           this.emit('division', { bar, beat, division, pulse })
+           this.emit('division', data)
         }
 
-        this.emit('pulse', { bar, beat, division, pulse })
+        this.emit('pulse', data)
 
         this.elapsedPulses += 1;
 
         if (this.isRunning) {
-            setTimeout(this.pulse.bind(this), this.pulseLength)
+            setTimeout(this.pulse.bind(this), this.pulseLength);
         }
     }
 

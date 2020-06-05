@@ -1,12 +1,12 @@
-import Window from "./Window"
-import Stage from "./Stage"
-import MidiMap from "./MidiMap"
+import Window from "../UI/Window"
+import Stage from "../Stage"
+import { MidiMapping } from "../Midi/MidiInterfaces"
 
 export default class Project {
     mediaPath: string;
     stages: Array<Stage>;
-    midiMappings: Array<MidiMap>;
-    windows: Array<Window>;
+    midiMappings: Array<MidiMapping>;
+    windows: Array<Window>;8
 
     constructor(public name : string = ''){
         this.stages = [];

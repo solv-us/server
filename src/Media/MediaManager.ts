@@ -1,13 +1,12 @@
-let fs = require('fs');
+import fs from 'fs';
 const fsPromises = fs.promises;
-let path = require('path');
 import MediaFile from './MediaFile'
 
 export default class MediaManager {
 
     files: Array<MediaFile>
 
-    constructor(public directory: String = '/'){
+    constructor(public directory: string = '/'){
         this.listFiles().then(mediaFileList =>{
             this.files = mediaFileList;
         });

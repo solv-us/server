@@ -1,4 +1,4 @@
-import MediaFile from './MediaFile'
+import MediaFile from './Media/MediaFile'
 
 export default class Stage {
     media: MediaFile;

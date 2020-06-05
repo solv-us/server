@@ -16,6 +16,9 @@ export default class ProjectManager {
 
     }
 
+    /**
+     * Reads the supplied directory and returns a list of filenames ending in .sproject
+     */
     async listProjects(){
         let projectList : Array<string> = [];
 
@@ -33,11 +36,19 @@ export default class ProjectManager {
     
     }
 
+    /**
+     * Gets a file from the specified path and loads it as active project
+     * @param path The file path relative to the ProjectManagers directory
+     */
     async loadProjectFromFile(path: string) {
         let project = await this.getFromFile(path);
         this.loadProject(project);
     }
 
+    /**
+     * Gets the content of a specfic JSON file, parses and returns it
+     * @param path The file path relative to the project managers directory
+     */
     async getFromFile(path: string) {
 
         let project: any;
@@ -54,6 +65,9 @@ export default class ProjectManager {
 
     }
 
+    /**
+     * Loads a parsed JSON object as the active project
+     */
     loadProject(project: any) {
         this.activeProject = new Project(project.name);
         this.activeProject.stages = project.stages;
@@ -61,11 +75,17 @@ export default class ProjectManager {
         this.activeProject.mediaPath = project.mediaPath;
     }
  
+    /**
+     * Creates an empty project
+     */
     async newEmptyProject(name: string){
         this.activeProject = new Project(name);
         return this.save();
     }
 
+    /**
+     * Write the active project's data to the file system
+     */
     async save(){
         if(this.activeProject){
             let data = JSON.stringify(this.activeProject);
@@ -80,12 +100,18 @@ export default class ProjectManager {
         }
     }
 
+    /**
+     * Save the active project and remove it as active
+     */
     async close(){
         await this.save();
         this.activeProject = undefined;
         return true;
     }
 
+    /**
+     * Remove the active project from the file system
+     */
     async delete(){
         if (this.activeProject) {
             let deleted = await fsPromises.unlink(this.directory + '/' + this.activeProject.name + '.sproject').catch((e)=>{console.error(e)})
