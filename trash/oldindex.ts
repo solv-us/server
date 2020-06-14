@@ -7,11 +7,11 @@ let artnet = require('artnet')({
     host:'192.168.2.5',
 })
 // Require components
-import Server from './Server'
-import ClientManager from './ClientManager'
+import Server from '../src/Server'
+import ClientManager from '../src/ClientManager'
 import ProjectManager from './ProjectManager'
-import MediaManager from './Media/MediaManager'
-import WindowManager from './UI/WindowManager'
+import MediaManager from '../src/Media/MediaManager'
+import WindowManager from '../src/UI/WindowManager'
 
 // Setup Solvus
 // TO-DO: Put this all in one over-arching class

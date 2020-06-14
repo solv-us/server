@@ -3,12 +3,15 @@ import path from "path"
 import fs from "fs"
 import pem from "pem"
 import express, { Application } from "express";
-import { createServer as createHttpsServer, Server as HTTPSServer } from "https";
+import cors from "cors"
+import { Server as HTTPSServer } from "https";
+import SocketIO from "socket.io"
 
 export default class Server {
 
     public app: Application; 
     public httpsServer: HTTPSServer;
+    public sockets: SocketIO;
 
     constructor(){
         this.initialize();
@@ -22,7 +25,9 @@ export default class Server {
         let { key, cert } = await this.getOrCreateKeyAndCertificate();
 
         this.app = express();
-        this.httpsServer = createHttpsServer({ key, cert }, this.app);
+        this.app.use(cors());
+
+        this.httpsServer = new HTTPSServer({ key, cert }, this.app);
         this.handleRoutes();
 
         // Listen!
@@ -32,6 +37,8 @@ export default class Server {
             let ip = await this.getServerIPAddress();
             console.log(`Listening on https://${ip}:${port}`, '\n');
         });
+
+        this.sockets = SocketIO(this.httpsServer, { serveClient: false, path:'/sockets' });
 
     };
 
@@ -58,7 +65,7 @@ export default class Server {
      */
     private handleRoutes(){
         // Root message
-        let version = require('../package.json').version;
+        let version = require('../../package.json').version;
         this.app.get('/', (req, res) => res.send(`solv.us server ${version}`))
 
         // Set up static file server for the public folder

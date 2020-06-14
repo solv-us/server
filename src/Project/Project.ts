@@ -1,5 +1,5 @@
-import Window from "../UI/Window"
-import Stage from "../Stage"
+import Window from "../Communication/UI/Window"
+import Stage from "./Stage"
 import { MidiMapping } from "../Midi/MidiInterfaces"
 
 export default class Project {

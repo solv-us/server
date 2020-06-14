@@ -17,7 +17,7 @@ export default function setUpMPKController(app : SolvusServer){
 
     app.mainClock.on('tempoChanged', e => console.log(e))
 
-    app.mainClock.on('division', ({ bar, beat, division }) => {
+    app.mainClock.on('division', ({ beat, division }) => {
 
         output.send('noteon', {
             note: pads2[division],

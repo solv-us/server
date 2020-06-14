@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import SolvusEvent from "@/Events/EventInterface";
+import SolvusEvent from "../Events/EventInterface";
 
 export interface MidiInput {
     name: string;

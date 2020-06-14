@@ -3,7 +3,7 @@
  * Based on https://github.com/livejs/tap-tempo/blob/master/index.js by livejs
  * To-do: rewrite functions to be more clear and add comments
  */
-const DEFAULT_TIMEOUT_TIME = 2000;
+const DEFAULT_TIMEOUT_TIME = 1000;
 
 import { EventEmitter } from 'events';
 
@@ -42,7 +42,7 @@ export default class TempoTapper extends EventEmitter {
     attemptCalculation() {
         if (this.times.length > 2) {
             var average = this.times.reduce((result, t)=> { return result += t }) / this.times.length
-            var bpm = (1 / (average / 1000)) * 60
+            var bpm = Math.round((1 / (average / 1000)) * 60)
             this.emit('tempo', bpm)
         }
     }

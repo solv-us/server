@@ -77,16 +77,37 @@ export default class MidiDeviceManager extends EventEmitter {
      * Get output by USB Name
      * @param name
      */
-    getOutputByName(name : string){
-       return this.outputs.find(e => e.name === name);
+    getOutputByName(name : string) : MidiOutput{
+        let output = this.outputs.find(e => e.name === name);
+        // To-Do: Using this failsafe makes RT midi crash?????
+        // Has something to do with garbage collection, see https://github.com/justinlatimer/node-midi/issues/168
+        
+        // if(output){
+        //     return output;
+        // }else{
+        //     return {
+        //         name: undefined,
+        //         absorber: undefined
+        //     }
+        // }
+        return output;
     }
 
     /**
-     * Get output by USB name
+     * Get input by USB name
      * @param name 
      */
-    getInputByName(name: string){
-        return this.inputs.find(e => e.name === name);
+    getInputByName(name: string) :MidiInput {
+       let input = this.inputs.find(e => e.name === name);
+        // if (input) {
+        //     return input;
+        // } else {
+        //     return {
+        //         name: undefined,
+        //         emitter: undefined
+        //     }
+        // }
+        return input;
     }
 
     /**

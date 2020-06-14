@@ -1,12 +1,12 @@
-// External Dependencies
-import socketIO from "socket.io";
+// // External Dependencies
+// import socketIO from "socket.io";
 
 // Require solvus components
-import Server from './Server'
-import ClientManager from './ClientManager'
+import Server from './Server/Server'
+import ClientManager from './Communication/Client/ClientManager'
 import ProjectManager from './Project/ProjectManager'
 import MediaManager from './Media/MediaManager'
-import WindowManager from './UI/WindowManager'
+import WindowManager from './Communication/UI/WindowManager'
 import MidiDeviceManager from './Midi/MidiDeviceManager'
 import MidiMapManager from "./Midi/MidiMapManager";
 import EventManager from "./Events/EventManager";
@@ -24,11 +24,10 @@ export default class Solvus {
     midiMapManager = new MidiMapManager();
     mainClock = new Clock();
     eventManager = new EventManager(this.midiDeviceManager, this.midiMapManager, this.mainClock);
-    io: any;
+
 
     constructor(){
 
-        this.io = socketIO(this.server.httpsServer, { serveClient: false });
         this.eventManager.on('stageEvent', (event : SolvusEvent)=>{
             
           console.log(event)
