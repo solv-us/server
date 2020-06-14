@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: './src/index.ts',
+  entry: './src/SolvusServer.ts',
   target: 'node',
   node: {
     __dirname: false,
