@@ -27,15 +27,14 @@
     "artnet": "^1.4.0",
     "chalk": "^3.0.0",
     "chokidar": "^3.3.1",
+    "cors": "^2.8.5",
     "easymidi": "^1.0.3",
     "express": "^4.17.1",
     "ip": "^1.1.5",
     "pem": "^1.14.4",
     "smpte.js": "^1.0.1",
     "socket.io": "^2.3.0",
-    "tap-tempo": "^0.1.1",
-    "timesync": "^1.0.5",
-    "uws": "^10.148.1"
+    "timesync": "^1.0.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
