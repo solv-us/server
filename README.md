@@ -5,8 +5,10 @@ This repository contains the server component of solv.us. For full instructions,
 ### Prerequisites
 Solv.us server runs in a Node.js environment, so make sure [Node.js](https://nodejs.org/en/) is installed on the computer you intend to run this server on. 
 
-Download the latest version from ```dist/SolvusServer.js```. Place it where you want, navigate there in your terminal and then run:
+Download the latest version from [the Release tab](https://github.com/solv-us/server/releases). Place the file wherever you want your projects to live, navigate there in your terminal and then run:
+
 ```
+cd path/to/the/folder
 node SolvusServer
 ```
 
