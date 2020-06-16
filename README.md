@@ -31,7 +31,7 @@ npm install
 npm run start:watch
 ```
 
-### Compile and minifie for production
+### Compile and minify for production
 ```
 npm run build
 ```
