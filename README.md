@@ -20,13 +20,7 @@ Clients are instantiations of the stages. Think of it as the spectators.
 
 
 ## Getting started
-- **Set up a [solv.us server](https://github.com/solv-us/server):** To do this, follow the instructions in the [server repository](https://github.com/solv-us/server).
-- **Open the user interface:** You can use the online version at [ui.sol.vus](ui.sol.vus), or download it from the [UI repository](https://github.com/solv-us/ui) and run it locally if you don't want to rely on an internet connection.
-- Check out the examples, add Midi Devices, and start coding ✨
-
-[Read the full getting-started here](Getting_Started.md).
-
-### Prerequisites
+### Setting up the server
 Solv.us server runs in a Node.js environment, so make sure [Node.js](https://nodejs.org/en/) is installed on the computer you intend to run this server on. 
 
 Download the latest version from [the Releases tab](https://github.com/solv-us/server/releases).
@@ -38,7 +32,8 @@ npm install @solvus/server
 
 Then, create a new file (e.g. index.js) where you import and setup the server:
 ```
-import SolvusServer from './SolvusServer.js'
+import SolvusServer from './SolvusServer.js' // With ES6 imports
+let SolvusServer = require('./SolvusServer.js'); // Or with require
 
 let app = new SolvusServer();
 ```
@@ -48,10 +43,19 @@ To start the server, in the terminal navigate to your index.js file and run it w
 node  /path/to/your/index.js
 ```
 
-### Note on HTTPS
+#### Note on HTTPS
 Solv.us server is by default only accessible over HTTPS. To make things easier, it will generate the necessary certificate and key on start up and save them in the root folder. Browsers will not trust this certificate since it's self-signed, so in each browser you will need to trust it manually.
 
 If you wish to provide your own certificate and key to prevent this, save them as ```./local-cert.pem``` and ```./local-key.pem``` in your root folder.
+
+### Open the UI
+To create new projects, you can use the online version of the user interface at [ui.sol.vus](ui.sol.vus).
+If you don't want to rely on an internet connection, download it from the [UI repository](https://github.com/solv-us/ui) and serve it locally. 
+
+In the UI you can set up stages, create MIDI mappings and.
+
+### Add the client to your project
+Head on over to the [client repository](https://github.com/solv-us/client) and integrate solv.us into your projects!
 
 ## Setup for development
 If you want to add features or customize the server, you'll need to clone the whole repository and install its dependencies.
