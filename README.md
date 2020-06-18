@@ -32,7 +32,7 @@ npm install @solvus/server
 ```
 
 Then, create a new file (e.g. index.js) where you import and setup the server:
-```
+```js
 import SolvusServer from '@solvus/server' // With ES6 imports and npm
 let SolvusServer = require('./SolvusServer.js'); // Or with require and a downloaded file
 
