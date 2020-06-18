@@ -1,7 +1,31 @@
-# solv.us server
-This repository contains the server component of solv.us. For full instructions, please see the [documentation repository](https://github.com/solv-us/documentation).
+# solv.us
 
-## Setup for production
+## What is solv.us?
+Solv.us is a collection of open-source, web-based & code-oriented software tools for VJing & controlling interactive installations. It enables you to use the power of the web and existing frameworks for it like [three.js](https://threejs.org) in the context of live events, both in the physical word and online.
+
+<p align="center">
+<img alt="A diagram of solv.us' elements: A server, User Interface, Stages and connected clients" src="diagram.png">
+</p>
+
+### Server
+
+### User Interface
+The solv.us UI is the interface where you set up and control your project. It contains a workspace that is customizable with the elements that you need for your performance. 
+
+### Stages
+
+
+### Clients
+Clients are instantiations of the stages. Think of it as the spectators.
+
+
+## Getting started
+- **Set up a [solv.us server](https://github.com/solv-us/server):** To do this, follow the instructions in the [server repository](https://github.com/solv-us/server).
+- **Open the user interface:** You can use the online version at [ui.sol.vus](ui.sol.vus), or download it from the [UI repository](https://github.com/solv-us/ui) and run it locally if you don't want to rely on an internet connection.
+- Check out the examples, add Midi Devices, and start coding ✨
+
+[Read the full getting-started here](Getting_Started.md).
+
 ### Prerequisites
 Solv.us server runs in a Node.js environment, so make sure [Node.js](https://nodejs.org/en/) is installed on the computer you intend to run this server on. 
 
