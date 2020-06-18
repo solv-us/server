@@ -1,5 +1,6 @@
 import easymidi from 'easymidi';
 import { EventEmitter } from 'events';
+import SolvusServer from "../SolvusServer"
 
 import { MidiInput, MidiOutput, MidiMessage } from './MidiInterfaces'
 
@@ -10,10 +11,11 @@ export default class MidiDeviceManager extends EventEmitter {
     public inputs: Array<MidiInput> = [];
     public outputs: Array<MidiOutput> = [];
 
-    constructor() {
+    constructor(private app : SolvusServer) {
         super();
         
         this.registerDevices();
+        // Check for change in devices every x seconds
         setInterval(() => { this.registerDevices(); }, DEFAULT_MIDI_POLL_INTERVAL);
 
     }

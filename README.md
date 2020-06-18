@@ -20,20 +20,21 @@ Clients are instantiations of the stages. Think of it as the spectators.
 
 
 ## Getting started
-### Setting up the server
+### 1) Setting up the server
 Solv.us server runs in a Node.js environment, so make sure [Node.js](https://nodejs.org/en/) is installed on the computer you intend to run this server on. 
 
-Download the latest version from [the Releases tab](https://github.com/solv-us/server/releases).
-Alternatively, you can use npm:
-
+Create a folder to house your server, navigate into it and download the server using npm:
 ```
+mkdir myserver
+cd myserver
+npm init
 npm install @solvus/server
 ```
 
 Then, create a new file (e.g. index.js) where you import and setup the server:
 ```
-import SolvusServer from './SolvusServer.js' // With ES6 imports
-let SolvusServer = require('./SolvusServer.js'); // Or with require
+import SolvusServer from '@solvus/server' // With ES6 imports and npm
+let SolvusServer = require('./SolvusServer.js'); // Or with require and a downloaded file
 
 let app = new SolvusServer();
 ```
@@ -48,13 +49,13 @@ Solv.us server is by default only accessible over HTTPS. To make things easier, 
 
 If you wish to provide your own certificate and key to prevent this, save them as ```./local-cert.pem``` and ```./local-key.pem``` in your root folder.
 
-### Open the UI
+### 2) Open the UI
 To create new projects, you can use the online version of the user interface at [ui.sol.vus](ui.sol.vus).
 If you don't want to rely on an internet connection, download it from the [UI repository](https://github.com/solv-us/ui) and serve it locally. 
 
 In the UI you can set up stages, create MIDI mappings and.
 
-### Add the client to your project
+### 3) Add the client to your project
 Head on over to the [client repository](https://github.com/solv-us/client) and integrate solv.us into your projects!
 
 ## Setup for development

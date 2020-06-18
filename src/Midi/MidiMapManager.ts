@@ -1,11 +1,12 @@
 import { MidiMessage, MidiMessageType, MidiMapping } from "./MidiInterfaces"
+import SolvusServer from "../SolvusServer"
 import SolvusEvent from "../Events/EventInterface"
 
 export default class MidiMapManager {
     public mappings: Array<MidiMapping>;
 
-    constructor(){
-        this.mappings = [];
+    constructor(private app : SolvusServer){
+
     }
     
     /**
@@ -22,7 +23,9 @@ export default class MidiMapManager {
             type: type as MidiMessageType
         }
 
-        this.mappings.push(mapping);
+        this.app.projectManager.activeProject?.midiMappings.push(mapping);
+
+        this.app.projectManager.save();
         return mapping;
     }
 
@@ -31,10 +34,14 @@ export default class MidiMapManager {
      * @param mapping The MIDI Map to delete
      */
     removeMapping(mapping: MidiMapping){
-        let index = this.mappings.indexOf(mapping);
+        let mappings = this.app.projectManager.activeProject?.midiMappings;
+
+        let index = mappings.indexOf(mapping);
         if (index >= 0) {
-            this.mappings.splice(index, 1);
+            mappings.splice(index, 1);
         }
+
+        this.app.projectManager.save();
     }
 
     /**
@@ -42,7 +49,7 @@ export default class MidiMapManager {
      */
     getEventMappedToMessage(message: MidiMessage) : SolvusEvent | false{
 
-        let mapping = this.mappings.find((e)=>{
+        let mapping = this.app.projectManager.activeProject?.midiMappings.find((e)=>{
             return (e.deviceName === '*' || e.deviceName === message.deviceName) &&
                    (e.channel === '*' || e.channel === message.channel) &&
                    (e.number === '*' || e.number === message.number) &&

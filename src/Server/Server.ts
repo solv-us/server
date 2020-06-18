@@ -14,13 +14,13 @@ export default class Server {
     public sockets: SocketIO;
 
     constructor(){
-        this.initialize();
+   
     }
 
     /*
     *   Set up the server using Express and self-sign HTTPS certificates if none are present
     */
-    private async initialize(){
+    public async initialize(){
 
         let { key, cert } = await this.getOrCreateKeyAndCertificate();
 

@@ -1,8 +1,8 @@
 {
-  "name": "solvus-server",
+  "name": "@solvus/server",
   "version": "0.0.1",
   "description": "",
-  "private": true,
+  "private": false,
   "main": "src/index.ts",
   "scripts": {
     "start": "TS_NODE_FILES=true node --inspect=5858 -r ts-node/register ./src/index.ts",

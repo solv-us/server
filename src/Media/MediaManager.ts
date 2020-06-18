@@ -18,10 +18,10 @@ export default class MediaManager {
         let files = await fsPromises.readdir(this.directory);
         if(files){
             for (let file of files) {
-                let absolutePath = this.directory + '/' + file;
-                let stats = fs.statSync(absolutePath)
-                
                 if(file.charAt(0) !== '.'){
+                    let absolutePath = this.directory + '/' + file;
+                    let stats = fs.statSync(absolutePath)
+
                     let mediaFile: MediaFile = {
                         name: file,
                         size: Math.round(stats.size / 1000000.0),
@@ -31,7 +31,6 @@ export default class MediaManager {
             }
 
         }
-
         return mediaFileList;
     }
 }

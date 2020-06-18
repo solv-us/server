@@ -65,7 +65,7 @@ export default class EventManager extends EventEmitter {
     }
 
     /**
-     * After tempo is calculated based on systemevent MainClock.tapTempo, set the main clock to this new tempo
+     * After tempo is calculated based on system event MainClock.tapTempo, set the main clock to this new tempo
      */
     registerTempoListener() {
         this.tempoTapper.on('tempo', tempo => this.mainClock.setTempo(tempo))

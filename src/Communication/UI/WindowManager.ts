@@ -1,9 +1,10 @@
 import Window from './Window'
+import SolvusServer from '../../SolvusServer'
 
 export default class WindowManager {
     public windows: Array<Window>;
 
-    constructor(){
+    constructor(private app : SolvusServer){
         this.windows = [];
     }
     

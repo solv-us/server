@@ -1,15 +1,15 @@
-let fs = require('fs');
+import fs from 'fs';
 const fsPromises = fs.promises;
 
 import Project from './Project';
 
 export default class ProjectManager {
 
-    activeProject:Project;
+    activeProject: Project;
     projects: Array<string>
 
-    constructor(public directory: String = '/'){
-        
+    constructor(public directory: string = './') {
+
         this.listProjects().then(projectList => {
             this.projects = projectList;
         });
@@ -19,21 +19,22 @@ export default class ProjectManager {
     /**
      * Reads the supplied directory and returns a list of filenames ending in .sproject
      */
-    async listProjects(){
-        let projectList : Array<string> = [];
+    async listProjects() {
+        let projectList: Array<string> = [];
 
-        let projectFiles = await fsPromises.readdir(this.directory);
-        if (projectFiles) {
-            for(let projectFile of projectFiles){
-                if (projectFile.split('.').pop() === 'sproject')
-                projectList.push(projectFile);
+        let directoryFiles = await fsPromises.readdir(this.directory);
+
+        if (directoryFiles) {
+            for (let file of directoryFiles) {
+                if (file.split('.').pop() === 'sproject')
+                    projectList.push(file);
             }
         } else {
-            console.error('No projects found in folder ' + this.directory)
+            console.error('No files found in folder ' + this.directory)
         }
 
-       return projectList;
-    
+        return projectList;
+
     }
 
     /**
@@ -42,7 +43,7 @@ export default class ProjectManager {
      */
     async loadProjectFromFile(path: string) {
         let project = await this.getFromFile(path);
-        this.loadProject(project);
+        return this.loadProject(project);
     }
 
     /**
@@ -52,13 +53,12 @@ export default class ProjectManager {
     async getFromFile(path: string) {
 
         let project: any;
-
-        let projectFile = await fsPromises.readFile(this.directory + '/' +path);
-
-        if (projectFile) {
-            project = JSON.parse(projectFile);
-        } else {
-            console.error('Cannot load project file: ' + path + '. File corrupted or not found.')
+        try {
+            let projectFile = await fsPromises.readFile(this.directory + '/' + path);
+            project = JSON.parse(projectFile.toString());
+        } catch{
+            console.error('File not found or corrupted: ' + this.directory + '/' + path)
+            return undefined;
         }
 
         return project;
@@ -69,16 +69,23 @@ export default class ProjectManager {
      * Loads a parsed JSON object as the active project
      */
     loadProject(project: any) {
-        this.activeProject = new Project(project.name);
-        this.activeProject.stages = project.stages;
-        this.activeProject.windows = project.windows;
-        this.activeProject.mediaPath = project.mediaPath;
+        if (project) {
+            this.activeProject = new Project(project.name);
+            this.activeProject.stages = project.stages || [];
+            this.activeProject.windows = project.windows || [];
+            this.activeProject.midiMappings = project.midiMappings || [];
+            this.activeProject.mediaPath = project.mediaPath;
+
+            console.log('Set ' + project.name + ' as active project')
+        } else {
+            console.error('Did not set active project')
+        }
     }
- 
+
     /**
      * Creates an empty project
      */
-    async newEmptyProject(name: string){
+    async newEmptyProject(name: string) {
         this.activeProject = new Project(name);
         return this.save();
     }
@@ -86,24 +93,24 @@ export default class ProjectManager {
     /**
      * Write the active project's data to the file system
      */
-    async save(){
-        if(this.activeProject){
+    async save() {
+        if (this.activeProject) {
             let data = JSON.stringify(this.activeProject);
-            let projectFile = await fsPromises.writeFile(this.directory + '/' + this.activeProject.name + '.sproject', data)
-            if (projectFile) {
-                return true;
-            } else {
+            try {
+                let projectFile = await fsPromises.writeFile(this.directory + '/' + this.activeProject.name + '.sproject', data);
+                return projectFile;
+            } catch{
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
 
     /**
-     * Save the active project and remove it as active
+     * Save the active project and make it inactive
      */
-    async close(){
+    async close() {
         await this.save();
         this.activeProject = undefined;
         return true;
@@ -112,9 +119,9 @@ export default class ProjectManager {
     /**
      * Remove the active project from the file system
      */
-    async delete(){
+    async delete() {
         if (this.activeProject) {
-            let deleted = await fsPromises.unlink(this.directory + '/' + this.activeProject.name + '.sproject').catch((e)=>{console.error(e)})
+            let deleted = await fsPromises.unlink(this.directory + '/' + this.activeProject.name + '.sproject').catch((e) => { console.error(e) })
             this.activeProject = undefined;
             return deleted;
         }
