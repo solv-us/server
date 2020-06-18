@@ -29,11 +29,23 @@ Clients are instantiations of the stages. Think of it as the spectators.
 ### Prerequisites
 Solv.us server runs in a Node.js environment, so make sure [Node.js](https://nodejs.org/en/) is installed on the computer you intend to run this server on. 
 
-Download the latest version from [the Releases tab](https://github.com/solv-us/server/releases). Place the file wherever you want your projects to live, navigate there in your terminal and then start the server:
+Download the latest version from [the Releases tab](https://github.com/solv-us/server/releases).
+Alternatively, you can use npm:
 
 ```
-cd path/to/the/folder &&
-node SolvusServer
+npm install @solvus/server
+```
+
+Then, create a new file (e.g. index.js) where you import and setup the server:
+```
+import SolvusServer from './SolvusServer.js'
+
+let app = new SolvusServer();
+```
+
+To start the server, in the terminal navigate to your index.js file and run it with node:
+```
+node  /path/to/your/index.js
 ```
 
 ### Note on HTTPS
