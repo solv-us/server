@@ -50,7 +50,7 @@ Solv.us server is by default only accessible over HTTPS. To make things easier, 
 If you wish to provide your own certificate and key to prevent this, save them as ```./local-cert.pem``` and ```./local-key.pem``` in your root folder.
 
 ### 2) Open the UI
-To create new projects, you can use the online version of the user interface at [ui.sol.vus](ui.sol.vus).
+To create new projects, you can use the online version of the user interface at [ui.solv.us](ui.solv.us).
 If you don't want to rely on an internet connection, download it from the [UI repository](https://github.com/solv-us/ui) and serve it locally. 
 
 In the UI you can set up stages, create MIDI mappings and.
