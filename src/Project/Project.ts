@@ -4,25 +4,28 @@ import { MidiMapping } from "../Midi/MidiInterfaces"
 import SolvusEvent from "../Events/EventInterface";
 
 export interface ProjectInterface{
-    mediaPath: string;
+    publicPath: string;
     stages: Array<Stage>;
     midiMappings: Array<MidiMapping>;
     windows: Array<Window>; 
     events:Array<SolvusEvent>;
 }
 export default class Project implements ProjectInterface{
-    mediaPath: string;
+    publicPath: string;
     stages: Array<Stage>;
     midiMappings: Array<MidiMapping>;
     windows: Array<Window>; 
     events:Array<SolvusEvent>;
     
     constructor(public name : string = ''){
-        this.stages = [];
+        this.publicPath = '';
+        let stage : Stage = {
+            id:'main'
+        }
+        this.stages = [stage];
         this.windows = [];
-        this.mediaPath = '';
         this.midiMappings = [];
         this.events = [];
     }
-    
+   
 }

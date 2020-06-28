@@ -7,7 +7,7 @@ export default class ClientCommunicator {
     }
 
     initialize() {
-        this.app.server.sockets.of('/client').on('connection', () => { this.handleConnection });
+        this.app.server.sockets.of('/client').on('connection', (socket) => { this.handleConnection(socket) });
     }
 
     /**
@@ -23,11 +23,12 @@ export default class ClientCommunicator {
 
         // Save changes and emit to UI
         socket.on('clientUpdate', (data) => {
-
+            
             // Subscribe to stage
             if (data.stageId !== client.data.stageId) {
                 socket.leave('#' + client.data.stageId);
                 socket.join('#' + data.stageId);
+
 
                 if (projectManager.activeProject) {
                     for (let stage of projectManager.activeProject.stages) {
@@ -40,7 +41,7 @@ export default class ClientCommunicator {
                 }
 
             }
-
+            console.log(data)
             // Update client list and send to ui
             Object.assign(client.data, data);
             uiSockets.emit('clientsUpdate', clientManager.clients);

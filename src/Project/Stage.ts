@@ -1,7 +1,7 @@
 import MediaFile from '../Media/MediaFile'
 
 export default class Stage {
-    media: MediaFile;
+    media?: MediaFile;
 
     constructor(public id: String){
     }

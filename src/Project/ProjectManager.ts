@@ -74,7 +74,8 @@ export default class ProjectManager {
             this.activeProject.stages = project.stages || [];
             this.activeProject.windows = project.windows || [];
             this.activeProject.midiMappings = project.midiMappings || [];
-            this.activeProject.mediaPath = project.mediaPath;
+            this.activeProject.events = project.events || [];
+            this.activeProject.publicPath = project.publicPath;
 
             console.log('Set ' + project.name + ' as active project')
         } else {

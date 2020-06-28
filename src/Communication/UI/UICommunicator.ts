@@ -33,12 +33,11 @@ export default class UICommunicator {
 
         socket.on('openProject', (projectName) => {
             projectManager.loadProjectFromFile(projectName).then(() => {
-                console.log('SET ACTIVE PROJECT:', projectManager.activeProject.name);
+                console.log('SET ACTIVE PROJECT:', projectManager.activeProject?.name);
 
                 socket.emit('clientsUpdate', clientManager.clients);
                 socket.emit('filesUpdate', mediaManager.files);
                 socket.emit('projectUpdate', projectManager.activeProject);
-                console.log(projectManager.activeProject)
             });
         })
 
@@ -84,7 +83,6 @@ export default class UICommunicator {
         socket.on('updateWindows', (windows) => {
            
             if (projectManager.activeProject) {
-                console.log('update windowsd', windows)
                 projectManager.activeProject.windows = windows;
                 projectManager.save();
             }
@@ -104,6 +102,15 @@ export default class UICommunicator {
             }
         });
 
+        socket.on('updatePublicPath', (publicPath) => {
+            if (projectManager.activeProject) {
+                projectManager.activeProject.publicPath = publicPath;
+
+                mediaManager.directory = publicPath;
+                projectManager.save();
+            }
+        });
+
         socket.on('sendStageEvent', (target, id, value) => {
 
             let event : SolvusEvent = {
@@ -113,8 +120,8 @@ export default class UICommunicator {
                 data:{
                     value
                 }
-            }
-            
+            }  
+
             if (target === '*' || target === 'all') {
                 clientSockets.emit('stageEvent', event);
             } else {
@@ -122,6 +129,9 @@ export default class UICommunicator {
             }
         });
 
+        socket.on('forceToStage', (clientId, stageId) => {
+            clientSockets.to(clientId).emit('forceToStage', stageId)
+        });
 
     }
 

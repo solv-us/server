@@ -16,7 +16,7 @@ export default class Solvus {
   public server: Server = new Server();
   public clientManager = new ClientManager();
   public projectManager = new ProjectManager();
-  public mediaManager = new MediaManager(this.projectManager.activeProject?.mediaPath);
+  public mediaManager = new MediaManager(this.projectManager.activeProject?.publicPath);
   public windowManager = new WindowManager(this);
   public mainClock = new Clock();
   public midiDeviceManager = new MidiDeviceManager(this);
