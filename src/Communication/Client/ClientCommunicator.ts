@@ -7,7 +7,15 @@ export default class ClientCommunicator {
     }
 
     initialize() {
-        this.app.server.sockets.of('/client').on('connection', (socket) => { this.handleConnection(socket) });
+        let clients = this.app.server.sockets.of('/client')
+        clients.on('connection', (socket) => { this.handleConnection(socket) });
+
+        this.app.mainClock.on('beat', (data)=>{
+            clients.emit('beat', data);
+        });
+        this.app.mainClock.on('division', (data) => {
+            clients.emit('division', data);
+        })
     }
 
     /**
@@ -41,7 +49,6 @@ export default class ClientCommunicator {
                 }
 
             }
-            console.log(data)
             // Update client list and send to ui
             Object.assign(client.data, data);
             uiSockets.emit('clientsUpdate', clientManager.clients);

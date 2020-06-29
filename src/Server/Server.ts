@@ -69,7 +69,8 @@ export default class Server {
         this.app.get('/', (req, res) => res.send(`solv.us server ${version}`))
 
         // Set up static file server for the public folder
-        this.app.use('/stage', express.static(path.join(__dirname, '../public/stage')));
+        // to-do
+        this.app.use('/stage', express.static(path.join(__dirname, '../../../client')));
         this.app.use('/content', express.static(path.join(__dirname, '../public/content')));
     }
 

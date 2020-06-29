@@ -10,6 +10,10 @@ export default class UICommunicator {
     initialize(){
         let uiSocket = this.app.server.sockets.of('/ui')
         uiSocket.on('connection', (socket)=>{this.handleConnection(socket)});
+
+        this.app.mainClock.on('division', (data) => {
+            uiSocket.emit('timeUpdate', data);
+        })
     }
 
     /**
@@ -53,6 +57,7 @@ export default class UICommunicator {
                 })
             })
         });
+
         socket.on('deleteProject', () => {
             projectManager.delete().then(() => {
                 socket.emit('projectUpdate', projectManager.activeProject);
@@ -111,15 +116,25 @@ export default class UICommunicator {
             }
         });
 
+        socket.on('startMainClock',()=>{
+            this.app.mainClock.start();
+        })
+
+        socket.on('stopMainClock', () => {
+            this.app.mainClock.stop();
+        });
+
+        socket.on('setTempo', (tempo) => {
+            this.app.mainClock.setTempo(tempo);
+        })
+
         socket.on('sendStageEvent', (target, id, value) => {
 
             let event : SolvusEvent = {
                 type:'stage',
                 id,
                 target,
-                data:{
-                    value
-                }
+                data:value
             }  
 
             if (target === '*' || target === 'all') {

@@ -5,7 +5,7 @@
 import SolvusServer from './SolvusServer'
 
 let app = new SolvusServer();
-app.projectManager.directory = '/'
+app.projectManager.directory = '/Users/daniel/projects/solvus/server/public/projects'
 
 // async function setup(){
 //    await app.projectManager.loadProjectFromFile('beepleboople.sproject');
@@ -13,6 +13,6 @@ app.projectManager.directory = '/'
 // }
 
 // setup();
-// A function I wrote to use the Akai MPK Mini II as a controller.
-import setUpMPKController from './Midi/Controllers/MPKMiniController';
-//setUpMPKController(app);
+// // A function I wrote to use the Akai MPK Mini II as a controller.
+// import setUpMPKController from './Midi/Controllers/MPKMiniController';
+// //setUpMPKController(app);

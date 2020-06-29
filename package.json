@@ -5,8 +5,8 @@
   "private": false,
   "main": "src/index.ts",
   "scripts": {
-    "start": "TS_NODE_FILES=true node --inspect=5858 -r ts-node/register ./src/index.ts",
-    "start:nodebug": "TS_NODE_FILES=true node -r ts-node/register ./src/index.ts",
+    "start": "TS_NODE_FILES=true node -r ts-node/register ./src/index.ts",
+    "start:debug": "TS_NODE_FILES=true node --inspect=5858 -r ts-node/register ./src/index.ts",
     "start:watch": "nodemon",
     "build": "webpack"
   },
@@ -20,7 +20,7 @@
     "watch": [
       "src"
     ],
-    "exec": "npm run start:nodebug",
+    "exec": "npm run start",
     "ext": "ts"
   },
   "dependencies": {

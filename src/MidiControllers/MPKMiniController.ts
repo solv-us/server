@@ -1,5 +1,5 @@
 /**
- * This file sets up the Akai MPK mini as a controller for the clock
+ * This file sets up the Akai MPK mini as a controller for the solv.us clock
  */
 import SolvusServer from '../SolvusServer'
 import SolvusEvent from "../Events/EventInterface";
@@ -44,22 +44,28 @@ export default function setUpMPKController(app : SolvusServer){
         });
 
     });
+}
 
-    app.mainClock.on('stop', ()=>{
-        // output.send('noteon', {
-        //     note: pads[beat - 1],
-        //     velocity: 0,
-        //     channel: 0
-        // });
-        // output.send('noteon', {
-        //     note: pads2[beat - 1],
-        //     velocity: 0,
-        //     channel: 0
-        // });
-    })
 
-    // app.eventManager.on('systemEvent', (event)=>{
-    //     if(event.id==='')
+
+
+
+
+
+
+    // app.mainClock.on('stop', ()=>{
+    //     // output.send('noteon', {
+    //     //     note: pads[beat - 1],
+    //     //     velocity: 0,
+    //     //     channel: 0
+    //     // });
+    //     // output.send('noteon', {
+    //     //     note: pads2[beat - 1],
+    //     //     velocity: 0,
+    //     //     channel: 0
+    //     // });
     // })
 
-}
+    // // app.eventManager.on('systemEvent', (event)=>{
+    // //     if(event.id==='')
+    // // })
