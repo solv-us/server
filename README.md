@@ -8,18 +8,20 @@ Solv.us is an open-source, web-based & code-oriented framework for VJing & contr
 </p>
 
 ### Server
+The server is the heart of solv.us: it manages MIDI devices, media files, time, and the networking aspects of solv.us
 
 ### User Interface
 The solv.us UI is the interface where you set up and control your project. It contains a workspace that is customizable with the elements that you need for your performance. 
 
 ### Stages
-
+Stages are virtual or physical places that can contain different content and code, receiving events that it can react to. Since solv.us is a web-oriented tool, the most common form for a stage is to be a webpage.
 
 ### Clients
-Clients are instantiations of the stages. Think of it as the spectators.
-
+Clients are instantiations of the stages. Think of it as the spectators to your stage.
 
 ## Getting started
+!!!! Temporary warning: the npm build is failing, so please see 'Set up for development' and skip the following instructions.
+
 ### 1) Setting up the server
 Solv.us server runs in a Node.js environment, so make sure [Node.js](https://nodejs.org/en/) is installed on the computer you intend to run this server on. 
 
